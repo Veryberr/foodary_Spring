@@ -47,6 +47,8 @@ public class DietController {
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
 		UserFoodList userFoodList = ctx.getBean("userFoodList", UserFoodList.class);
 		userFoodList.setList(mapper.userFoodList(0));
+		logger.info( "dietInsertView - userFoodList : {}", userFoodList );
+
 		session.setAttribute("userFoodList", userFoodList);
 		return "diet/dietInsertView";
 	}
@@ -68,7 +70,7 @@ public class DietController {
 
 	      if( sessfoodName == null) {
 	         foodName = request.getParameter("foodName");
-	         System.out.println(foodName);
+	         System.out.println( "sessfoodName == null -> foodName : " + foodName);
 	      }else if(sessfoodName != null && foodName != null) {
 	    	  session.removeAttribute("foodName");
 		  }else {
@@ -79,8 +81,8 @@ public class DietController {
 	      
 	      if (foodName == null || foodName.trim().length() == 0) {
 	         int totalCount = mapper.foodSelectCount();
-	         System.out.println(totalCount);
-	         System.out.println(foodName);
+	         System.out.println( "totalCount : " + totalCount);
+	         System.out.println( "foodName : " + foodName);
 	         foodList.initFoodList(pageSize, totalCount, currentPage);
 	         HashMap<String, Integer> hmap = new HashMap<String, Integer>();
 	         hmap.put("startNo", foodList.getStartNo());
@@ -89,8 +91,8 @@ public class DietController {
 	      } else {
 	         session.setAttribute("foodName", foodName);
 	         int totalCount = mapper.selectCountFood(foodName);
-	         System.out.println(totalCount);
-	         System.out.println(foodName);
+			  System.out.println( "totalCount : " + totalCount);
+			  System.out.println( "foodName : " + foodName);
 	         foodList.initFoodList(pageSize, totalCount, currentPage);
 	         Param param = new Param();
 	         param.setStartNo(foodList.getStartNo());
@@ -153,7 +155,7 @@ public class DietController {
 	public String userFoodInsert(HttpServletRequest request, Model model, UserFoodVO userFoodVO, DietVO dvo) {
 		logger.info("userFoodInsert 메소드 실행");
 		DietDAO mapper = sqlSession.getMapper(DietDAO.class);
-		logger.info("{}", userFoodVO);
+		logger.info("userFoodInsert - userFoodVO : {}", userFoodVO);
 		HttpSession session = request.getSession();
 		
 		String id = (String) session.getAttribute("id");
