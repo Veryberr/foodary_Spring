@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>음식 목록</title>
+<script src="../js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="../js/foodView.js"></script> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -88,7 +89,7 @@
 			           ${vo.fat}
 			      </td>
 			      <td class="text-center" style="background: #fffdf5;">
-			         <input type="checkbox" value="선택" name="foodName" style="accent-color: #7a33ff;"/>      
+			         <input type="checkbox" value="선택" id="chkFood" name="foodName" style="accent-color: #7a33ff;"/>
 			      </td>
 			   </tr>
 			   </c:forEach>
@@ -196,7 +197,7 @@
 		        <tr style="height: 60px;">
 		        <input type="hidden" value="${rvo.id}" id="id" name="id"/>
 				   	<td colspan="8" align="center">
-						<button type="button" onclick="addData()" style="background: none; border: 0; cursor: pointer;">
+						<button type="button" id="getFood" style="background: none; border: 0; cursor: pointer;">
 							<span style="background: #baffda; font-size: 30px; font-weight: 900;">가져오기</span>
 						</button>&nbsp;&nbsp;&nbsp;
 						<button type="button" onclick="popupClose()" style="background: none; border: 0; cursor: pointer;">
@@ -210,3 +211,8 @@
 </div>
 </body>
 </html>
+<script type="text/javascript">
+	foodView.bind();
+
+	foodView.addFood();
+</script>

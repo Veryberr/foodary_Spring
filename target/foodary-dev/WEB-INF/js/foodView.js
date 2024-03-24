@@ -1,42 +1,97 @@
-function addData() {
-	var selectedRadios = document.querySelectorAll('input[name="foodName"]:checked');
-	var id = document.getElementsByName("id")[0].value;
-  if (selectedRadios.length > 0) {
-    var foodNames = [];
-    var kcals = [];
-    var carbss = [];
-    var proteins = [];
-    var fats = [];
-    selectedRadios.forEach(function(selectedRadio) {
-      var parentRow = selectedRadio.closest('tr');
-      var foodName = parentRow.querySelector('td:nth-child(2)').innerHTML.trim();
-      var kcal = parentRow.querySelector('td:nth-child(3)').innerHTML.trim();
-      var carbs = parentRow.querySelector('td:nth-child(4)').innerHTML.trim();
-      var protein = parentRow.querySelector('td:nth-child(5)').innerHTML.trim();
-      var fat = parentRow.querySelector('td:nth-child(6)').innerHTML.trim();
-      
-      foodNames.push(foodName);
-      kcals.push(kcal);
-      carbss.push(carbs);
-      proteins.push(protein);
-      fats.push(fat);
-    });
-    
-  for (var i = 0; i < foodNames.length; i++) {
-	  var url = './userFoodInsert?' +
-      'foodName=' + foodNames[i] +
-      '&kcal=' + kcals[i] +
-      '&carbs=' + carbss[i] +
-      '&protein=' + proteins[i] +
-      '&fat=' + fats[i] + 
-      '&id=' + id;
-    	window.location.href = url;
-  }
-//  부모 창으로 데이터 전송 후 팝업 창 닫기
-    window.close(); // 팝업 창 닫기
-    window.opener.refreshParent();
-  }
+let foodView = {
+
+    init: function() {
+
+    },
+
+    bind: function() {
+        $( document ).ready( function() {
+            let foodIdx = [];
+            $( '#ajaxTable' ).on( 'click', 'tr', function() {
+
+                let trIndex = $(this).index();
+                let chkbox = $( '#ajaxTable input[type="checkbox"]' ).eq( trIndex );
+
+                if ( chkbox.length > 0 ) {
+                    chkbox.prop( 'checked', !chkbox.prop('checked') );
+                }
+
+                let foodNm = $( '#ajaxTable > td:eq(0)' ).eq( trIndex ).text().trim();
+                console.log( 'foodNm : ' + foodNm );
+                foodIdx.push( foodNm );
+            });
+            console.log( 'foodIdx : ' + foodIdx );
+        });
+
+    },
+
+    addFood: function() {
+            $('#ajaxTable').on('change', 'input[type="checkbox"]', function() {
+                let checkedData = []; // 체크된 데이터를 담을 배열
+                    console.log( 'addFood 탐' );
+                // 체크된 체크박스들을 순회하며 데이터를 추출합니다.
+                $('#ajaxTable input[type="checkbox"]:checked').each(function() {
+                    let tr = $(this).closest('tr'); // 현재 체크된 체크박스의 부모 <tr> 태그
+                    console.log( 'addFood22222222222 탐' );
+                    // 체크된 <tr> 태그 내부의 각 <td> 태그에서 텍스트 데이터를 추출하여 배열에 추가합니다.
+                    let rowData = [];
+                    $( '.idx' ).each(function() {
+                        console.log( 'addFood3333333333333333333333 ' );
+                        rowData.push($(this).text().trim());
+                        console.log( 'rowData : ' + rowData );
+                    });
+
+                    // 추출한 데이터를 배열에 추가합니다.
+                    checkedData.push(rowData);
+                });
+
+                // 추출한 데이터를 콘솔에 출력하여 확인합니다.
+                console.log( 'checkedData : ' + checkedData);
+            });
+    },
+
 }
+
+
+// function addData() {
+// 	var selectedRadios = document.querySelectorAll('input[name="foodName"]:checked');
+// 	var id = document.getElementsByName("id")[0].value;
+//   if (selectedRadios.length > 0) {
+//     var foodNames = [];
+//     var kcals = [];
+//     var carbss = [];
+//     var proteins = [];
+//     var fats = [];
+//     selectedRadios.forEach(function(selectedRadio) {
+//       var parentRow = selectedRadio.closest('tr');
+//       var foodName = parentRow.querySelector('td:nth-child(2)').innerHTML.trim();
+//       var kcal = parentRow.querySelector('td:nth-child(3)').innerHTML.trim();
+//       var carbs = parentRow.querySelector('td:nth-child(4)').innerHTML.trim();
+//       var protein = parentRow.querySelector('td:nth-child(5)').innerHTML.trim();
+//       var fat = parentRow.querySelector('td:nth-child(6)').innerHTML.trim();
+//
+//       foodNames.push(foodName);
+//       kcals.push(kcal);
+//       carbss.push(carbs);
+//       proteins.push(protein);
+//       fats.push(fat);
+//     });
+//
+//   for (var i = 0; i < foodNames.length; i++) {
+// 	  var url = './userFoodInsert?' +
+//       'foodName=' + foodNames[i] +
+//       '&kcal=' + kcals[i] +
+//       '&carbs=' + carbss[i] +
+//       '&protein=' + proteins[i] +
+//       '&fat=' + fats[i] +
+//       '&id=' + id;
+//     	window.location.href = url;
+//   }
+// //  부모 창으로 데이터 전송 후 팝업 창 닫기
+//     window.close(); // 팝업 창 닫기
+//     window.opener.refreshParent();
+//   }
+// }
 
 window.onbeforeunload = function() {
 	var url = './popupClose'

@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>음식목록</title>
 <!-- bootstrap -->
+<script src="../js/jquery-3.7.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
