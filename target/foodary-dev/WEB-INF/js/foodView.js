@@ -91,6 +91,7 @@ let foodView = {
              proteins.push(protein);
              fats.push(fat);
 */
+ /*
              let food = {
                  "idx": 0,
                  "foodName": "",
@@ -105,6 +106,8 @@ let foodView = {
              food.carbs = carbs;
              food.protein = protein;
              food.fat = fat;
+*/
+
 
 /*
              console.log( 'foodNames : ' + foodNames );
@@ -113,6 +116,14 @@ let foodView = {
              console.log( 'proteins : ' + proteins );
              console.log( 'fats : ' + fats );
  */
+             let food = [];
+             food.push( idx );
+             food.push( foodName );
+             food.push( kcal );
+             food.push( carbs );
+             food.push( protein );
+             food.push( fat );
+
             console.log( 'food : ' + food );
             foodInfo.push( food );
          });
